@@ -14,31 +14,44 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-bg/10 via-bg/60 to-bg" aria-hidden="true" />
       </div>
       <div className="relative max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-16 md:py-24">
-        <motion.div
+        <motion.dl
           initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.6 }}
-          className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink/60"
+          className="grid w-full max-w-3xl gap-4 text-sm text-ink/70 sm:grid-cols-3"
         >
-          <span className="font-medium text-ink/70">{SITE.name}</span>
-          <a
-            href={`tel:${phoneHref}`}
-            className="hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/70"
-          >
-            {SITE.phone}
-          </a>
-          <a
-            href={`mailto:${SITE.email}`}
-            className="hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/70"
-          >
-            {SITE.email}
-          </a>
-        </motion.div>
+          <div className="glass rounded-2xl p-4">
+            <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/50">Name</dt>
+            <dd className="mt-2 text-base font-semibold text-ink">{SITE.name}</dd>
+          </div>
+          <div className="glass rounded-2xl p-4">
+            <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/50">Phone</dt>
+            <dd className="mt-2 text-base font-medium text-ink">
+              <a
+                href={`tel:${phoneHref}`}
+                className="inline-flex items-center gap-2 transition hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/70"
+              >
+                {SITE.phone}
+              </a>
+            </dd>
+          </div>
+          <div className="glass rounded-2xl p-4">
+            <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/50">Email</dt>
+            <dd className="mt-2 text-base font-medium text-ink">
+              <a
+                href={`mailto:${SITE.email}`}
+                className="inline-flex items-center gap-2 transition hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/70"
+              >
+                {SITE.email}
+              </a>
+            </dd>
+          </div>
+        </motion.dl>
         <motion.h1
           initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.6 }}
-          className="max-w-3xl text-4xl md:text-6xl font-semibold leading-tight tracking-tight text-ink"
+          className="mt-10 max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-ink md:mt-12 md:text-6xl"
         >
           Building context-aware AI systems for accessibility, culture, and research.
         </motion.h1>
@@ -61,7 +74,7 @@ export default function Hero() {
           Areas of expertise include AI engineering, software prototyping, machine learning, quantitative analysis, and team
           leadership across multi-disciplinary initiatives.
         </motion.p>
-        <div className="mt-8 flex flex-wrap gap-4">
+        <div className="mt-10 flex flex-wrap items-center gap-3 sm:gap-4">
           <Link
             to="/projects"
             className="px-5 py-3 rounded-xl bg-primary text-bg font-semibold transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/70"
