@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import projects from '../data/projects.json'
 import { useTheme } from '../components/ThemeProvider'
 import { SEO } from '../components/SEO'
+import { SITE } from '../config/site'
 
 interface Project {
   id: string
@@ -51,9 +52,9 @@ export default function Projects() {
       className="flex-1"
     >
       <SEO
-        title="Projects — AI/ML Portfolio"
-        description="Explore applied AI and ML projects across LLMs, multimodal perception, forecasting, and robotics."
-        url="https://example.com/projects"
+        title={`Projects — ${SITE.name}`}
+        description="Applied AI work spanning accessibility agents, cultural discovery platforms, scientometric research, and quantitative strategy."
+        url={`${SITE.url}/projects`}
       />
       <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-10">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
