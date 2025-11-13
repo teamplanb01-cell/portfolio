@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #050B12;
+  --ink: #E6EDF5;
+  --muted: #94A3B8;
+}
+
+html, body, #root { height: 100%; }
+
+.glass {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.card {
+  @apply rounded-2xl p-5 glass shadow-glow transition-transform;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}

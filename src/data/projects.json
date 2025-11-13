@@ -1,0 +1,122 @@
+[
+  {
+    "id": "note-helpfulness",
+    "title": "Predicting Community Note Helpfulness with LLMs",
+    "summary": "Note-only inference benchmark using Gemini + baselines; early-stop policies and ROC-AUC.",
+    "tags": [
+      "NLP",
+      "Evaluation",
+      "LLMs",
+      "Moderation"
+    ],
+    "featured": true,
+    "links": {
+      "code": "#",
+      "paper": "#",
+      "demo": "#"
+    },
+    "body": "## Problem\nCan LLMs predict whether a Community Note will be marked helpful? We test note-only inference to reduce latency and API cost.\n\n## Approach\nCompare Gemini, local baselines, and rule-based early-stop policies on historical notes. Evaluate using ROC-AUC and calibration.\n\n## Results\n- ROC-AUC: **0.87**\n- F1: **0.79**\n\n## Learnings\nPrompt structure matters more than model size in note-only setting.\n"
+  },
+  {
+    "id": "vision-agent",
+    "title": "VisionAgent: Android Accessibility via Gemini + ADB",
+    "summary": "LLM-powered perception loop for screen automation with accessibility surfaces.",
+    "tags": [
+      "Multimodal",
+      "Android",
+      "Accessibility",
+      "Agents"
+    ],
+    "featured": true,
+    "links": {
+      "code": "#"
+    },
+    "body": "Prototype agent that reads screen trees, plans actions, and executes via ADB intents."
+  },
+  {
+    "id": "egocentric-robotics",
+    "title": "Egocentric-10K for Low-Shot Robotics Perception",
+    "summary": "Ego-view CLIP fine-tuning and retrieval for manipulation affordances.",
+    "tags": [
+      "CV",
+      "Robotics",
+      "Multimodal"
+    ],
+    "featured": true,
+    "links": {
+      "code": "#"
+    },
+    "body": "Fine-tunes CLIP on egocentric frames; improves retrieval MAP@10 to 0.73."
+  },
+  {
+    "id": "timeseries-forecast",
+    "title": "Hierarchical Time-Series Forecasting at Scale",
+    "summary": "Grouped reconciliation with probabilistic intervals on retail signals.",
+    "tags": [
+      "Time-Series",
+      "Forecasting"
+    ],
+    "featured": false,
+    "links": {
+      "code": "#"
+    },
+    "body": "Implements MinT; compares with Prophet and DeepAR on M5-like data."
+  },
+  {
+    "id": "recsys-contrastive",
+    "title": "Contrastive Pretraining for Recommenders",
+    "summary": "User-intent embeddings via event sequences; improved NDCG@10 by 6%.",
+    "tags": [
+      "Recommendation",
+      "Self-Supervised"
+    ],
+    "featured": false,
+    "links": {
+      "code": "#"
+    },
+    "body": "Augments sequences and trains with InfoNCE; ablations included."
+  },
+  {
+    "id": "rl-sim2real",
+    "title": "Sim2Real RL for Warehouse Robots",
+    "summary": "Domain randomization and privileged info; 4x fewer resets in real runs.",
+    "tags": [
+      "RL",
+      "Robotics"
+    ],
+    "featured": false,
+    "links": {
+      "code": "#"
+    },
+    "body": "Randomizes textures/lighting; transfers PPO policy with success."
+  },
+  {
+    "id": "nlp-toxicity",
+    "title": "Context-Aware Toxicity Detection",
+    "summary": "Adds conversational context windows; reduces false-positives by 11%.",
+    "tags": [
+      "NLP",
+      "Moderation"
+    ],
+    "featured": false,
+    "links": {
+      "code": "#"
+    },
+    "body": "Calibrates threshold per domain; explores label smoothing."
+  },
+  {
+    "id": "eval-harness",
+    "title": "LLM Eval Harness for Internal Benchmarks",
+    "summary": "Reproducible prompts, judges, and confidence intervals.",
+    "tags": [
+      "Evaluation",
+      "LLMs",
+      "MLOps"
+    ],
+    "featured": false,
+    "links": {
+      "code": "#"
+    },
+    "body": "CLI generates runs and aggregates results with bootstrap CIs."
+  }
+]
