@@ -38,7 +38,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.6 }}
-          className="text-4xl md:text-6xl font-bold leading-tight"
+          className="max-w-3xl text-4xl md:text-6xl font-semibold leading-tight tracking-tight text-ink"
         >
           Building context-aware AI systems for accessibility, culture, and research.
         </motion.h1>
