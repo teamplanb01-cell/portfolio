@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import Hero from './components/Hero'
 import Featured from './components/Featured'
 import { SEO } from './components/SEO'
+import { SITE } from './config/site'
 
 const pageTransition = {
   initial: { opacity: 0, y: 16 },
@@ -18,11 +19,7 @@ export default function App() {
       exit={pageTransition.exit}
       transition={{ duration: 0.4, ease: 'easeOut' }}
     >
-      <SEO
-        title="AI/ML Portfolio"
-        description="Applied research, evaluation, and production ML systems. Explore LLMs, perception, and human-in-the-loop work."
-        url="https://example.com/"
-      />
+      <SEO title={SITE.title} description={SITE.description} url={SITE.url} />
       <section className="relative overflow-hidden">
         <Hero />
       </section>

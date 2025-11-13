@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import { SEO } from '../components/SEO'
 import { useTheme } from '../components/ThemeProvider'
+import { SITE } from '../config/site'
 
 interface PostContent {
   title: string
@@ -68,7 +69,7 @@ export default function WritingDetail() {
     )
   }
 
-  const pageUrl = `https://example.com/writing/${slug}`
+  const pageUrl = `${SITE.url}/writing/${slug}`
 
   return (
     <motion.main

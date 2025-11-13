@@ -25,7 +25,7 @@ const setMeta = (selector: string, attribute: 'content', value: string) => {
   element.setAttribute(attribute, value)
 }
 
-export const SEO = ({ title, description, url, image = '/og.png', structuredData }: SEOProps) => {
+export const SEO = ({ title, description, url, image = '/og.svg', structuredData }: SEOProps) => {
   useEffect(() => {
     document.title = title
     setMeta('meta[name="description"]', 'content', description)

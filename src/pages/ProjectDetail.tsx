@@ -5,6 +5,7 @@ import projects from '../data/projects.json'
 import { useTheme } from '../components/ThemeProvider'
 import { SEO } from '../components/SEO'
 import { MetricsChart } from '../components/MetricsChart'
+import { SITE } from '../config/site'
 
 export default function ProjectDetail() {
   const { id } = useParams()
@@ -34,7 +35,7 @@ export default function ProjectDetail() {
     )
   }
 
-  const pageUrl = `https://example.com/project/${project.id}`
+  const pageUrl = `${SITE.url}/project/${project.id}`
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
@@ -43,7 +44,7 @@ export default function ProjectDetail() {
     url: pageUrl,
     author: {
       '@type': 'Person',
-      name: 'AI/ML Engineer'
+      name: SITE.name
     },
     keywords: project.tags
   }
@@ -56,7 +57,12 @@ export default function ProjectDetail() {
       transition={{ duration: prefersReducedMotion ? 0 : 0.35 }}
       className="flex-1"
     >
-      <SEO title={`${project.title} — AI/ML Portfolio`} description={project.summary} url={pageUrl} structuredData={structuredData} />
+      <SEO
+        title={`${project.title} — ${SITE.name}`}
+        description={project.summary}
+        url={pageUrl}
+        structuredData={structuredData}
+      />
       <div className="mx-auto max-w-3xl px-6 py-10">
         <Link
           to="/projects"

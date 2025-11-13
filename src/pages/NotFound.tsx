@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { SEO } from '../components/SEO'
 import { useTheme } from '../components/ThemeProvider'
+import { SITE } from '../config/site'
 
 export default function NotFound() {
   const { prefersReducedMotion } = useTheme()
@@ -15,8 +16,8 @@ export default function NotFound() {
     >
       <SEO
         title="404 — Page not found"
-        description="This page could not be found on the AI/ML portfolio."
-        url="https://example.com/404"
+        description={`This page could not be found on ${SITE.name}'s portfolio.`}
+        url={`${SITE.url}/404`}
       />
       <h1 className="text-5xl font-bold">404</h1>
       <p className="mt-3 max-w-md text-ink/70">The page you’re looking for doesn’t exist or has moved.</p>
