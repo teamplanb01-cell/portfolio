@@ -4,16 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#050B12',
-        ink: '#E6EDF5',
-        primary: '#6EE7F9',
-        accent: '#A78BFA'
+        bg: 'rgb(var(--color-bg) / <alpha-value>)',
+        ink: 'rgb(var(--color-ink) / <alpha-value>)',
+        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+        accent: 'rgb(var(--color-accent) / <alpha-value>)'
       },
       borderRadius: {
         '2xl': '1rem'
       },
       boxShadow: {
-        glow: '0 0 40px rgba(111, 231, 249, 0.15)'
+        glow: 'var(--shadow-glow)'
       }
     }
   },

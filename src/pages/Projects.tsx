@@ -1,67 +1,180 @@
 import { useMemo, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import Fuse from 'fuse.js'
+import { motion, LayoutGroup, useMotionValue } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import projects from '../data/projects.json'
+import { useTheme } from '../components/ThemeProvider'
+import { SEO } from '../components/SEO'
 
-const allTags = Array.from(new Set(projects.flatMap(p => p.tags))).sort()
+interface Project {
+  id: string
+  title: string
+  summary: string
+  tags: string[]
+}
+
+const allTags = Array.from(new Set(projects.flatMap(project => project.tags))).sort()
+
+const fuse = new Fuse(projects as Project[], {
+  includeScore: true,
+  threshold: 0.34,
+  keys: ['title', 'summary', 'tags']
+})
+
+const cardTransition = { type: 'spring', stiffness: 260, damping: 26 }
+
+const useFilteredProjects = (query: string, activeTags: string[]) => {
+  return useMemo(() => {
+    const trimmed = query.trim()
+    const results = trimmed ? fuse.search(trimmed).map(result => result.item) : (projects as Project[])
+    return results.filter(project => activeTags.length === 0 || activeTags.every(tag => project.tags.includes(tag)))
+  }, [query, activeTags])
+}
 
 export default function Projects() {
-  const [q, setQ] = useState('')
-  const [active, setActive] = useState<string[]>([])
+  const { prefersReducedMotion } = useTheme()
+  const [query, setQuery] = useState('')
+  const [activeTags, setActiveTags] = useState<string[]>([])
 
-  const items = useMemo(() => {
-    return projects.filter(p => {
-      const matchesQ = (p.title + p.summary + p.tags.join(' ')).toLowerCase().includes(q.toLowerCase())
-      const matchesTags = active.length === 0 || active.every(t => p.tags.includes(t))
-      return matchesQ && matchesTags
-    })
-  }, [q, active])
+  const filtered = useFilteredProjects(query, activeTags)
 
-  const toggleTag = (t: string) => {
-    setActive(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t])
+  const toggleTag = (tag: string) => {
+    setActiveTags(prev => (prev.includes(tag) ? prev.filter(current => current !== tag) : [...prev, tag]))
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-10">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-        <h1 className="text-3xl font-semibold">Projects</h1>
-        <input
-          value={q}
-          onChange={e => setQ(e.target.value)}
-          placeholder="Search projects..."
-          className="px-4 py-2 rounded-xl glass outline-none w-full md:w-80"
-        />
-      </div>
-      <div className="flex flex-wrap gap-2 mb-6">
-        {allTags.map(t => (
-          <button key={t}
-            onClick={() => toggleTag(t)}
-            className={`px-3 py-1 rounded-xl border ${active.includes(t) ? 'border-primary text-primary' : 'border-white/10 text-ink/70 hover:text-primary'}`}
-          >{t}</button>
-        ))}
-        {active.length > 0 && (
-          <button onClick={() => setActive([])} className="px-3 py-1 rounded-xl border border-white/10 text-ink/60 hover:text-primary">Clear</button>
-        )}
-      </div>
-      <AnimatePresence mode="popLayout">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {items.map((p, idx) => (
-            <motion.div layout key={p.id} initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} exit={{opacity:0}} transition={{delay: 0.03*idx}} className="card">
-              <div className="aspect-[16/9] rounded-xl bg-black/30 mb-3"/>
-              <h3 className="text-lg font-semibold">{p.title}</h3>
-              <p className="text-ink/70 text-sm mt-1">{p.summary}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {p.tags.slice(0,6).map(t => (
-                  <span key={t} className="px-2 py-1 rounded-lg bg-white/5 text-ink/70 text-xs border border-white/10">{t}</span>
-                ))}
-              </div>
-              <div className="mt-4">
-                <Link to={`/project/${p.id}`} className="text-primary hover:underline text-sm">Read more →</Link>
-              </div>
-            </motion.div>
-          ))}
+    <motion.main
+      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -16 }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.35 }}
+      className="flex-1"
+    >
+      <SEO
+        title="Projects — AI/ML Portfolio"
+        description="Explore applied AI and ML projects across LLMs, multimodal perception, forecasting, and robotics."
+        url="https://example.com/projects"
+      />
+      <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-10">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <h1 className="text-3xl font-semibold">Projects</h1>
+          <input
+            value={query}
+            onChange={event => setQuery(event.target.value)}
+            placeholder="Fuzzy search projects..."
+            className="w-full rounded-xl border border-white/10 bg-transparent px-4 py-2 text-sm placeholder:text-ink/40 outline-none focus:border-primary/70 focus-visible:ring-2 focus-visible:ring-primary/40 md:w-80"
+            aria-label="Search projects"
+          />
         </div>
-      </AnimatePresence>
-    </div>
+        <LayoutGroup>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {allTags.map(tag => {
+              const active = activeTags.includes(tag)
+              return (
+                <motion.button
+                  key={tag}
+                  type="button"
+                  layout
+                  whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
+                  onClick={() => toggleTag(tag)}
+                  className={`relative rounded-full border px-4 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/60 ${
+                    active ? 'border-primary/80 text-primary chip-active' : 'border-white/10 text-ink/70 hover:text-primary'
+                  }`}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="chip-indicator"
+                      className="absolute inset-0 -z-10 rounded-full bg-primary/15"
+                      transition={prefersReducedMotion ? { duration: 0 } : cardTransition}
+                    />
+                  )}
+                  {tag}
+                </motion.button>
+              )
+            })}
+            {activeTags.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setActiveTags([])}
+                className="rounded-full border border-white/10 px-4 py-1 text-xs font-medium text-ink/60 transition hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/60"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+        </LayoutGroup>
+        <motion.div layout className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {filtered.map(project => (
+            <ProjectCard key={project.id} project={project} activeTags={activeTags} prefersReducedMotion={prefersReducedMotion} />
+          ))}
+          {filtered.length === 0 && (
+            <div className="col-span-full rounded-2xl border border-dashed border-white/15 p-10 text-center text-ink/60">
+              Nothing matched that query. Try different keywords or filters.
+            </div>
+          )}
+        </motion.div>
+      </div>
+    </motion.main>
+  )
+}
+
+interface ProjectCardProps {
+  project: Project
+  activeTags: string[]
+  prefersReducedMotion: boolean
+}
+
+const ProjectCard = ({ project, activeTags, prefersReducedMotion }: ProjectCardProps) => {
+  const rotateX = useMotionValue(0)
+  const rotateY = useMotionValue(0)
+
+  const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (prefersReducedMotion) return
+    const element = event.currentTarget
+    const rect = element.getBoundingClientRect()
+    const percentX = (event.clientX - rect.left) / rect.width
+    const percentY = (event.clientY - rect.top) / rect.height
+    rotateX.set((0.5 - percentY) * 12)
+    rotateY.set((percentX - 0.5) * 12)
+  }
+
+  const resetTilt = () => {
+    rotateX.set(0)
+    rotateY.set(0)
+  }
+
+  return (
+    <motion.div
+      className="card"
+      onPointerMove={onPointerMove}
+      onPointerLeave={resetTilt}
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      transition={prefersReducedMotion ? { duration: 0 } : cardTransition}
+    >
+      <div className="mb-3 aspect-[16/9] overflow-hidden rounded-xl bg-gradient-to-br from-primary/20 via-accent/10 to-transparent" />
+      <h3 className="text-lg font-semibold">{project.title}</h3>
+      <p className="mt-1 text-sm text-ink/70">{project.summary}</p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {project.tags.map(tag => {
+          const active = activeTags.includes(tag)
+          return (
+            <span
+              key={tag}
+              className={`rounded-lg border border-white/10 px-2 py-1 text-xs text-ink/70 ${active ? 'tag-glow' : ''}`}
+            >
+              {tag}
+            </span>
+          )
+        })}
+      </div>
+      <div className="mt-4">
+        <Link
+          to={`/project/${project.id}`}
+          className="text-sm text-primary transition hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/60"
+        >
+          Read more →
+        </Link>
+      </div>
+    </motion.div>
   )
 }
