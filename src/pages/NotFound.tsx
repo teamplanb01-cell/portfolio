@@ -1,10 +1,31 @@
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { SEO } from '../components/SEO'
+import { useTheme } from '../components/ThemeProvider'
+
 export default function NotFound() {
+  const { prefersReducedMotion } = useTheme()
   return (
-    <div className="min-h-screen flex items-center justify-center flex-col px-6 text-center">
-      <h1 className="text-4xl font-bold">404</h1>
-      <p className="text-ink/70 mt-2">The page you’re looking for doesn’t exist.</p>
-      <Link to="/" className="text-primary hover:underline mt-4">Go home</Link>
-    </div>
+    <motion.main
+      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -16 }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.35 }}
+      className="flex min-h-screen flex-col items-center justify-center px-6 text-center"
+    >
+      <SEO
+        title="404 — Page not found"
+        description="This page could not be found on the AI/ML portfolio."
+        url="https://example.com/404"
+      />
+      <h1 className="text-5xl font-bold">404</h1>
+      <p className="mt-3 max-w-md text-ink/70">The page you’re looking for doesn’t exist or has moved.</p>
+      <Link
+        to="/"
+        className="mt-5 inline-flex text-primary transition hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/60"
+      >
+        Go home
+      </Link>
+    </motion.main>
   )
 }

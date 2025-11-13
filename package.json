@@ -6,13 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "export": "vite build",
     "preview": "vite preview",
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts,.tsx --max-warnings=0"
   },
   "dependencies": {
+    "fuse.js": "^7.0.0",
     "framer-motion": "^11.0.0",
     "lucide-react": "^0.471.0",
+    "recharts": "^2.12.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
