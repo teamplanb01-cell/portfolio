@@ -1,17 +1,19 @@
 import { Link, NavLink } from 'react-router-dom'
 import { MotionConfig } from 'framer-motion'
-import { Github, Linkedin, GraduationCap, PenSquare } from 'lucide-react'
+import { Github, Mail, PenSquare, Phone } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 import { useTheme } from './ThemeProvider'
+import { SITE } from '../config/site'
 
 export default function Navbar() {
   const { cycleTheme } = useTheme()
+  const phoneHref = SITE.phone.replace(/\s+/g, '')
   return (
     <MotionConfig reducedMotion="user">
       <nav className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-bg/70">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
           <Link to="/" className="font-semibold tracking-wide focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/70">
-            <span className="text-primary">AI/</span>ML Portfolio
+            {SITE.name}
           </Link>
           <div className="flex flex-wrap items-center justify-end gap-4 md:gap-6">
             <NavLink
@@ -55,7 +57,7 @@ export default function Navbar() {
                 <PenSquare size={16} aria-hidden="true" />
               </button>
               <a
-                href="https://github.com/yourname"
+                href={SITE.github}
                 target="_blank"
                 rel="noreferrer"
                 className="text-ink/70 transition hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/70"
@@ -64,21 +66,18 @@ export default function Navbar() {
                 <Github size={18} aria-hidden="true" />
               </a>
               <a
-                href="https://www.linkedin.com/in/yourname"
-                target="_blank"
-                rel="noreferrer"
+                href={`mailto:${SITE.email}`}
                 className="text-ink/70 transition hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/70"
-                aria-label="LinkedIn"
+                aria-label="Email"
               >
-                <Linkedin size={18} aria-hidden="true" />
+                <Mail size={18} aria-hidden="true" />
               </a>
               <a
-                href="#"
-                rel="noreferrer"
+                href={`tel:${phoneHref}`}
                 className="text-ink/70 transition hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/70"
-                aria-label="Google Scholar"
+                aria-label="Phone"
               >
-                <GraduationCap size={18} aria-hidden="true" />
+                <Phone size={18} aria-hidden="true" />
               </a>
             </div>
           </div>

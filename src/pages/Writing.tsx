@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useMemo } from 'react'
 import { SEO } from '../components/SEO'
 import { useTheme } from '../components/ThemeProvider'
+import { SITE } from '../config/site'
 
 interface PostMeta {
   slug: string
@@ -61,13 +62,15 @@ export default function Writing() {
       className="flex-1"
     >
       <SEO
-        title="Writing — AI/ML Portfolio"
-        description="Notes on evaluation, agents, and production ML systems."
-        url="https://example.com/writing"
+        title={`Writing — ${SITE.name}`}
+        description="Research notes on accessibility agents, cultural discovery interfaces, and data science workflows."
+        url={`${SITE.url}/writing`}
       />
       <div className="mx-auto max-w-4xl px-6 py-12">
         <h1 className="text-3xl font-semibold">Writing</h1>
-        <p className="mt-3 text-ink/70">Short notes on evaluation frameworks, agents, and production ML systems.</p>
+        <p className="mt-3 text-ink/70">
+          Short notes on AI accessibility, model-context protocol design, scientometric pipelines, and quantitative strategy.
+        </p>
         <div className="mt-10 space-y-6">
           {formattedPosts.map(post => (
             <Link

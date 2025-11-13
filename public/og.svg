@@ -7,6 +7,6 @@
   </defs>
   <rect width="1200" height="630" fill="url(#grad)" />
   <rect width="1200" height="630" fill="rgba(5,11,18,0.55)" />
-  <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="'Inter', sans-serif" font-size="72" font-weight="700" fill="#E6EDF5">AI/ML Portfolio</text>
-  <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="'Inter', sans-serif" font-size="32" fill="#E6EDF5">Applied research • Evaluation • Production systems</text>
+  <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="'Inter', sans-serif" font-size="72" font-weight="700" fill="#E6EDF5">Saksham Kapoor</text>
+  <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="'Inter', sans-serif" font-size="32" fill="#E6EDF5">AI Engineering • Accessibility • Quantitative Research</text>
 </svg>
