@@ -29,6 +29,7 @@ export const CanvasParticles = () => {
     const target = { x: 0, y: 0 }
     let pointerActive = false
     let tick = 0
+    let lastTime = performance.now()
     let rafId: number | null = null
     let running = true
     let fillStyle = 'rgba(255, 255, 255, 0.65)'
@@ -76,7 +77,10 @@ export const CanvasParticles = () => {
 
     const draw = () => {
       if (!running) return
-      tick += 1
+      const now = performance.now()
+      const delta = Math.min((now - lastTime) / (1000 / 60), 2)
+      lastTime = now
+      tick += delta
       const { clientWidth, clientHeight } = canvas
       const baseX = pointerActive
         ? target.x
@@ -85,8 +89,9 @@ export const CanvasParticles = () => {
         ? target.y
         : clientHeight / 2 + Math.sin(tick * 0.0026) * clientHeight * 0.18
 
-      target.x += (baseX - target.x) * 0.05
-      target.y += (baseY - target.y) * 0.05
+      const lerpStrength = pointerActive ? 0.12 : 0.05
+      target.x += (baseX - target.x) * lerpStrength * delta
+      target.y += (baseY - target.y) * lerpStrength * delta
 
       context.save()
       context.setTransform(1, 0, 0, 1, 0, 0)
@@ -100,17 +105,19 @@ export const CanvasParticles = () => {
         const dx = target.x - particle.x
         const dy = target.y - particle.y
         const distance = Math.hypot(dx, dy) || 1
-        const attraction = Math.min(0.0007, 0.00025 + 80 / (distance * distance * 100))
+        const attraction = Math.min(0.0007, 0.00025 + 80 / (distance * distance * 100)) * delta
         particle.vx += dx * attraction
         particle.vy += dy * attraction
 
-        particle.vx += Math.cos(tick * particle.speed + particle.seed) * particle.swirl * 0.005
-        particle.vy += Math.sin(tick * particle.speed + particle.seed) * particle.swirl * 0.005
+        const swirlForce = particle.swirl * 0.005 * delta
+        particle.vx += Math.cos(tick * particle.speed + particle.seed) * swirlForce
+        particle.vy += Math.sin(tick * particle.speed + particle.seed) * swirlForce
 
-        particle.vx *= 0.982
-        particle.vy *= 0.982
-        particle.x += particle.vx
-        particle.y += particle.vy
+        const damping = Math.pow(0.982, delta)
+        particle.vx *= damping
+        particle.vy *= damping
+        particle.x += particle.vx * delta
+        particle.y += particle.vy * delta
 
         if (particle.x < -20 || particle.x > clientWidth + 20) particle.x = (particle.x + clientWidth) % clientWidth
         if (particle.y < -20 || particle.y > clientHeight + 20) particle.y = (particle.y + clientHeight) % clientHeight
@@ -159,6 +166,7 @@ export const CanvasParticles = () => {
     const handleFocus = () => {
       if (!prefersReducedMotion) {
         running = true
+        lastTime = performance.now()
         rafId = window.requestAnimationFrame(draw)
       }
     }
@@ -182,6 +190,7 @@ export const CanvasParticles = () => {
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
 
     if (!prefersReducedMotion) {
+      lastTime = performance.now()
       rafId = window.requestAnimationFrame(draw)
     }
 
