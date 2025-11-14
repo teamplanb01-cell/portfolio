@@ -1,6 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import './index.css'
 import App from './App'
@@ -35,9 +35,9 @@ const AnimatedRoutes = () => {
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider>
-      <BrowserRouter>
+      <HashRouter>
         <AnimatedRoutes />
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   </React.StrictMode>
 )

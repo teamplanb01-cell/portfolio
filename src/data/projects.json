@@ -10,6 +10,7 @@
       "Moderation"
     ],
     "featured": true,
+     "thumbnail": "communitynotes.png",
     "links": {
       "code": "#",
       "paper": "#",
@@ -32,6 +33,7 @@
       "Accessibility",
       "Agents"
     ],
+    "thumbnail": "visionagent.png",
     "featured": true,
     "links": {
       "code": "#"
@@ -51,6 +53,7 @@
     "links": {
       "code": "#"
     },
+    "thumbnail": "egocentric.png",
     "body": "Fine-tunes CLIP on egocentric frames; improves retrieval MAP@10 to 0.73.",
     "metrics": {
       "map_10": 0.73,

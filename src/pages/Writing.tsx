@@ -13,7 +13,7 @@ interface PostMeta {
   timestamp: number
 }
 
-const modules = import.meta.glob('../posts/*.md', { eager: true, as: 'raw' }) as Record<string, string>
+const modules = import.meta.glob('/src/posts/*.md', { eager: true, as: 'raw' })
 
 const parsePost = (path: string, raw: string): PostMeta => {
   const slug = path.split('/').pop()?.replace(/\.md$/, '') ?? 'post'

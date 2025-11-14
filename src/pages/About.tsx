@@ -3,8 +3,11 @@ import { SEO } from '../components/SEO'
 import { useTheme } from '../components/ThemeProvider'
 import { SITE } from '../config/site'
 
+const base = import.meta.env.BASE_URL || '/'
+
 export default function About() {
   const { prefersReducedMotion } = useTheme()
+
   return (
     <motion.main
       initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 16 }}
@@ -15,65 +18,99 @@ export default function About() {
     >
       <SEO
         title={`About — ${SITE.name}`}
-        description="Saksham Kapoor leads AI accessibility, cultural discovery, and scientometric research programs."
+        description="Saksham Kapoor builds context-aware AI systems across accessibility, culture, and research analytics."
         url={`${SITE.url}/about`}
       />
-      <div className="mx-auto max-w-3xl px-6 py-12">
-        <h1 className="text-3xl font-semibold">About</h1>
-        <p className="mt-4 text-ink/80">
-          I am an AI engineer and data scientist focused on translating context-rich research into dependable, human-centered
-          products. From leading Tradewind Technologies’ accessibility agent for Android to building cultural discovery tools
-          at CEEN.live, I orchestrate multi-agent systems, structured output pipelines, and voice interfaces that are ready for
-          production.
+
+      <div className="mx-auto max-w-3xl px-6 py-14">
+        {/* Heading + photo row */}
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          <div className="flex-1">
+            <h1 className="text-4xl font-semibold tracking-tight">About</h1>
+            <p className="mt-5 text-lg text-ink/80 leading-relaxed">
+              I build AI systems that understand context and turn it into useful, human-centered behavior.
+              My work spans accessibility agents for Android, cultural-discovery interfaces, and research
+              analytics that support long-horizon decisions.
+            </p>
+          </div>
+
+          <div className="shrink-0">
+            <img
+              src={`${base}saksham.jpeg`}
+              alt="Saksham Kapoor"
+              className="h-32 w-32 rounded-full object-cover border border-white/10 shadow-lg ring-2 ring-white/10 md:h-36 md:w-36"
+            />
+          </div>
+        </div>
+
+        <p className="mt-6 text-ink/80 leading-relaxed">
+          I currently lead accessibility agent development at Tradewind Technologies, where I work on
+          multimodal perception, structured reasoning, and guided voice interaction flows. At CEEN.live,
+          I design pipelines for poster-to-event knowledge extraction and conversational exploration.
         </p>
-        <p className="mt-6 text-ink/80">
-          Previously, as chief data scientist at Chulalongkorn University and a quantitative researcher with the Indian School
-          of Business, I designed scientometric pipelines, longitudinal studies, and survival analyses that informed strategic
-          decisions. My early experience at Mu Sigma laid the groundwork for scaling data platforms and real-time analytics in
-          healthcare.
+
+        <p className="mt-6 text-ink/80 leading-relaxed">
+          Before that, I headed scientometric research at Chulalongkorn University and conducted applied
+          quantitative work with the Indian School of Business — building publication-impact models,
+          author networks, and survival analyses used for institutional planning.
         </p>
-        <div className="mt-8 grid gap-6 rounded-2xl border border-white/10 bg-bg/70 p-6 md:grid-cols-2">
+
+        {/* Skill cards */}
+        <div className="mt-12 grid gap-8 rounded-2xl border border-white/10 bg-bg/50 p-8 md:grid-cols-2">
           <div>
             <h2 className="text-sm font-semibold uppercase tracking-wide text-ink/60">Core skills</h2>
-            <ul className="mt-3 space-y-2 text-ink/80">
-              <li>Context engineering &amp; LLM-driven tool orchestration (Genkit, Google ADK, MCP servers)</li>
-              <li>Multi-modal AI, data science, and quantitative research (time series, NLP, survival analysis)</li>
-              <li>Big data platforms and business intelligence (Python, SQL, Hadoop, Qlikview, Tableau)</li>
+            <ul className="mt-4 space-y-2 text-ink/80">
+              <li>Context engineering &amp; LLM-driven tool orchestration</li>
+              <li>Multimodal &amp; mobile AI (accessibility surfaces, screen perception)</li>
+              <li>Quantitative research (survival, time-series, scientometrics)</li>
+              <li>Data platforms (Python, SQL, BigQuery, Hadoop)</li>
             </ul>
           </div>
+
           <div>
             <h2 className="text-sm font-semibold uppercase tracking-wide text-ink/60">Focus areas</h2>
-            <ul className="mt-3 space-y-2 text-ink/80">
-              <li>Accessibility agents that translate complex mobile flows into guided voice tasks</li>
-              <li>Conversational cultural exploration and poster-to-event knowledge pipelines</li>
-              <li>Scientometric analytics for publication impact, author centrality, and innovation strategy</li>
+            <ul className="mt-4 space-y-2 text-ink/80">
+              <li>AI agents for voice-driven mobile navigation</li>
+              <li>Cultural-data extraction &amp; conversational exploration</li>
+              <li>Evaluation, benchmarking &amp; reproducible research tooling</li>
             </ul>
           </div>
         </div>
-        <div className="mt-8 space-y-4 text-ink/80">
+
+        {/* Roles + Education */}
+        <div className="mt-12 space-y-10 text-ink/80">
           <div>
             <h2 className="text-sm font-semibold uppercase tracking-wide text-ink/60">Recent roles</h2>
-            <ul className="mt-3 space-y-2">
+            <ul className="mt-3 space-y-4">
               <li>
-                <span className="font-medium text-ink/90">Lead Developer, Tradewind Technologies (2023–present)</span> — AI
-                accessibility agent development, hiring, and incubation support at BLOCK71 Singapore.
+                <span className="font-medium text-ink/90">Lead Developer — Tradewind Technologies</span>
+                <div className="text-ink/70">
+                  Accessibility agents, multimodal AI, BLOCK71 incubation.
+                </div>
               </li>
+
               <li>
-                <span className="font-medium text-ink/90">AI Engineer, CEEN.live (2024–present)</span> — Conversational map
-                interfaces and poster-to-event ingestion pipelines for global cultural discovery.
+                <span className="font-medium text-ink/90">AI Engineer — CEEN.live</span>
+                <div className="text-ink/70">
+                  Event-extraction pipelines and cultural-discovery conversations.
+                </div>
               </li>
+
               <li>
-                <span className="font-medium text-ink/90">Chief Data Scientist, Chulalongkorn University (2023–2024)</span>
-                — Publication metadata systems and scientometric analysis using Python, Pandas, and BigQuery.
+                <span className="font-medium text-ink/90">Chief Data Scientist — Chulalongkorn University</span>
+                <div className="text-ink/70">
+                  Scientometric analytics and metadata infrastructure.
+                </div>
               </li>
             </ul>
           </div>
+
           <div>
             <h2 className="text-sm font-semibold uppercase tracking-wide text-ink/60">Education</h2>
             <ul className="mt-3 space-y-2">
-              <li>MS in Computer Science, University of Colorado Boulder (CGPA: 3.945/4)</li>
-              <li>PG Diploma in Built Environment, Anant National University (CGPA: 3.05/4)</li>
-              <li>Bachelor of Engineering in Mechanical Engineering, Thapar University (CGPA: 6.91/10)</li>
+              <li>MS, Computer Science — University of Colorado Boulder</li>
+              <li>PG Diploma, Built Environment — Anant National University</li>
+              <li>BE, Mechanical Engineering — Thapar University</li>
             </ul>
           </div>
         </div>

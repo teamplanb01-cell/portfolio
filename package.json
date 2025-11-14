@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "export": "vite build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build && node -e \"require('fs').copyFileSync('dist/index.html','dist/404.html')\"",
+    "deploy": "npx gh-pages -d dist",
     "preview": "vite preview",
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts,.tsx --max-warnings=0"

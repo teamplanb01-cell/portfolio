@@ -13,7 +13,7 @@ interface Particle {
 }
 
 const PARTICLE_COUNT = 70
-const SPEED = 0.22
+const SPEED = 0.7
 
 export const CanvasParticles = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -31,7 +31,7 @@ export const CanvasParticles = () => {
     let tick = 0
     let rafId: number | null = null
     let running = true
-    let fillStyle = 'rgba(255, 255, 255, 0.35)'
+    let fillStyle = 'rgba(255, 255, 255, 0.65)'
     let colorChannels: [number, number, number] = [255, 255, 255]
 
     const updateFillStyle = () => {
@@ -53,7 +53,7 @@ export const CanvasParticles = () => {
           y: Math.random() * height,
           vx: (Math.random() - 0.5) * SPEED,
           vy: (Math.random() - 0.5) * SPEED,
-          radius: Math.random() * 1.6 + 0.4,
+          radius: Math.random() * 1.6 + 1.5,
           seed: Math.random() * Math.PI * 2,
           swirl: Math.random() * 0.6 + 0.2,
           speed: Math.random() * 0.002 + 0.0005
